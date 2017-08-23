@@ -771,7 +771,7 @@ app.post("/tfile", function (req, res) {
     }
 });
 
-app.post("/del_file", function (req, res) {
+app.post("/delfile", function (req, res) {
     if (req.session.slogin == true) {
         var files = req.body.file.split(",");
         var filesql = "";
