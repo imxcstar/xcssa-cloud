@@ -64,7 +64,7 @@ var mysqlc = mysql.createConnection({
 
 mysqlc.connect(function (err) {
     if (err) {
-        console.log(gtime() + ' [连接数据库错误] - :' + err);
+        console.error(gtime() + ' [连接数据库错误] - :' + err.message);
         return;
     }
     console.log(gtime() + ' 连接数据库成功！');
@@ -170,7 +170,7 @@ app.get("/createfolder", function (req, res) {
             var xjml = catalog + folder_name + "/";
             mysqlc.query("select * from file where url=" + mysqlc.escape(xjml) + " AND type='1'", function (err, results) {
                 if (err) {
-                    console.error(gtime() + ' [新建文件夹查询文件夹错误] - :' + err);
+                    console.error(gtime() + ' [新建文件夹查询文件夹错误] - :' + err.message);
                     res.send({
                         status: -1,
                         info: '新建文件夹错误，请重试！'
@@ -197,7 +197,7 @@ app.get("/createfolder", function (req, res) {
                                 var udsql_cs = [1, folder_name, dqtime, dqtime, 0, 0, xjml, catalog, shortid.generate(), 0, 0, req.session.uid];
                                 mysqlc.query(udsql, udsql_cs, function (err, result) {
                                     if (err) {
-                                        console.log('[新建文件夹添加文件夹错误] - ', err);
+                                        console.error('[新建文件夹添加文件夹错误] - ', err.message);
                                         res.send({
                                             status: -1,
                                             info: '新建文件夹错误，请重试！'
@@ -247,7 +247,7 @@ app.get("/gfilelist", function (req, res) {
             filez = mysqlc.escape(filez);
             mysqlc.query("select * from file where uid='" + req.session.uid + "' AND dir=" + filez, function (err, results) {
                 if (err) {
-                    console.error(gtime() + ' [获取文件列表查询用户错误] - :' + err);
+                    console.error(gtime() + ' [获取文件列表查询用户错误] - :' + err.message);
                     res.send({
                         status: -1,
                         info: "获取文件列表错误，请重试！"
@@ -304,7 +304,7 @@ app.get("/login", function (req, res) {
             ip_address: 'unknown'
         }, function (err, data) {
             if (err) {
-                console.error(gtime() + ' [登陆验证码获取错误] - :' + err);
+                console.error(gtime() + ' [登陆验证码获取错误] - :' + err.message);
                 res.send({
                     status: -1,
                     info: '获取验证码错误!'
@@ -329,7 +329,7 @@ app.get("/register", function (req, res) {
             ip_address: 'unknown'
         }, function (err, data) {
             if (err) {
-                console.error('[注册验证码获取错误] - :' + err);
+                console.error('[注册验证码获取错误] - :' + err.message);
                 res.send({
                     status: -1,
                     info: '获取验证码错误!'
@@ -354,7 +354,7 @@ app.get("/fpassword", function (req, res) {
             ip_address: 'unknown'
         }, function (err, data) {
             if (err) {
-                console.error('[修改密码验证码获取错误] - :' + err);
+                console.error('[修改密码验证码获取错误] - :' + err.message);
                 res.send({
                     status: -1,
                     info: '获取验证码错误!'
@@ -466,7 +466,7 @@ app.post("/fpassword", function (req, res) {
         fpassword_tpassword = md5(fpassword_tpassword, zkey);
         mysqlc.query("select * from user where username=" + mysqlc.escape(fpassword_tusername) + " AND email=" + mysqlc.escape(fpassword_temail) + " AND phone='" + mysqlc.escape(fpassword_tphone), function (err, results) {
             if (err) {
-                console.error(gtime() + ' [修改密码查询用户错误] - :' + err);
+                console.error(gtime() + ' [修改密码查询用户错误] - :' + err.message);
                 res.send({
                     status: -1,
                     info: '修改密码错误，请重试！'
@@ -483,7 +483,7 @@ app.post("/fpassword", function (req, res) {
                     var udsql_cs = [mysqlc.escape(fpassword_tpassword), mysqlc.escape(fpassword_tusername)];
                     mysqlc.query(udsql, udsql_cs, function (err, result) {
                         if (err) {
-                            console.error(gtime() + ' [修改密码错误] - :' + err);
+                            console.error(gtime() + ' [修改密码错误] - :' + err.message);
                             res.send({
                                 status: -1,
                                 info: '修改密码错误，请重试！'
@@ -534,7 +534,7 @@ app.post("/register", function (req, res) {
                 register_tpassword = md5(register_tpassword, zkey);
                 mysqlc.query("select * from user where username=" + mysqlc.escape(register_tusername) + " OR email=" + mysqlc.escape(register_temail) + " OR phone=" + mysqlc.escape(register_tphone), function (err, results) {
                     if (err) {
-                        console.error(gtime() + ' [注册帐号查询用户错误] - :' + err);
+                        console.error(gtime() + ' [注册帐号查询用户错误] - :' + err.message);
                         res.send({
                             status: -1,
                             info: '注册错误，请重试！'
@@ -602,7 +602,7 @@ app.post("/register", function (req, res) {
                                                 var udsql_cs = [register_tusername, register_tpassword, register_temail, register_tphone, ZBucket];
                                                 var sj = mysqlc.query(udsql, udsql_cs, function (err, result) {
                                                     if (err) {
-                                                        console.log('[注册帐号添加用户错误] - ', err);
+                                                        console.error('[注册帐号添加用户错误] - ', err.message);
                                                         res.send({
                                                             status: -1,
                                                             info: '注册错误，请重试！'
@@ -672,7 +672,7 @@ app.post("/login", function (req, res) {
                 login_tpassword = md5(login_tpassword, zkey);
                 mysqlc.query("select * from user where username=" + mysqlc.escape(login_tusername) + " AND password=" + mysqlc.escape(login_tpassword), function (err, results) {
                     if (err) {
-                        console.error(gtime() + ' [登录帐号查询用户错误] - :' + err);
+                        console.error(gtime() + ' [登录帐号查询用户错误] - :' + err.message);
                         res.send({
                             status: -1,
                             info: '登录错误，请重试！'
@@ -731,7 +731,7 @@ app.post("/tfile", function (req, res) {
         var udsql_cs = [0, name, dqtime, dqtime, size, vid, resource_path, ml, shortid.generate(), 0, 0, req.session.uid];
         mysqlc.query(udsql, udsql_cs, function (err, result) {
             if (err) {
-                console.log('[上传文件添加文件错误] - ', err);
+                console.error('[上传文件添加文件错误] - ', err.message);
                 res.send({
                     status: -1,
                     info: "上传错误！"
@@ -780,10 +780,15 @@ app.post("/delfile", function (req, res) {
                 filesql += "fid=" + mysqlc.escape(files[i]) + " OR ";
         }
         filesql.substring(0, filesql.length - 4);
+        console.log(filesql);
         var udsql = 'DELETE FROM file where ' + filesql;
         mysqlc.query(udsql, function (err, result) {
             if (err) {
-                console.log('[删除文件错误] - ', err.message);
+                console.error('[删除文件错误] - ', err.message);
+                res.send({
+                    status: -1,
+                    info: "删除错误，请重试！"
+                });
                 return;
             }
             console.log(result);
