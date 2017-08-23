@@ -772,6 +772,7 @@ app.post("/tfile", function (req, res) {
 
 app.post("/del_file", function (req, res) {
     if (req.session.slogin == true) {
+        var z;
         res.send({
             status: 0,
             info: "删除成功！"
