@@ -13,19 +13,20 @@ var querystring = require('querystring');
 var sdt = require('silly-datetime');
 var CryptoJS = require("crypto-js");
 var shortid = require('shortid');
+var pkey = require("./pk");
 
-const zkey = "随机数";
-const AppId = "腾讯云Cos-AppId";
-const SecretId = "腾讯云Cos-SecretId";
-const SecretKey = "腾讯云Cos-SecretKey";
-const yp_apikey = "云片-yp_apikey";
-const geetest_id = "geetest验证码-id";
-const geetest_key = "geetest验证码key";
-const secret = "随机数";
-const mysql_host = "数据库地址";
-const mysql_user = "数据库帐号";
-const mysql_password = "数据库密码";
-const mysql_database = "数据库";
+// const zkey = "随机数";
+// const AppId = "腾讯云Cos-AppId";
+// const SecretId = "腾讯云Cos-SecretId";
+// const SecretKey = "腾讯云Cos-SecretKey";
+// const yp_apikey = "云片-yp_apikey";
+// const geetest_id = "geetest验证码-id";
+// const geetest_key = "geetest验证码key";
+// const secret = "随机数";
+// const mysql_host = "数据库地址";
+// const mysql_user = "数据库帐号";
+// const mysql_password = "数据库密码";
+// const mysql_database = "数据库";
 
 //发送注册验证码的内容
 var ryzm = function (yzm) {
@@ -772,10 +773,24 @@ app.post("/tfile", function (req, res) {
 
 app.post("/del_file", function (req, res) {
     if (req.session.slogin == true) {
-        var z;
-        res.send({
-            status: 0,
-            info: "删除成功！"
+        var files = req.body.file.split(",");
+        var filesql = "";
+        for (let i = 0; i < files.length; i++) {
+            if (yz.isNumeric(files[i]))
+                filesql += "fid=" + mysqlc.escape(files[i]) + " OR ";
+        }
+        filesql.substring(0, filesql.length - 4);
+        var udsql = 'DELETE FROM file where ' + filesql;
+        connection.query(udsql, function (err, result) {
+            if (err) {
+                console.log('[删除文件错误] - ', err.message);
+                return;
+            }
+            console.log(result);
+            res.send({
+                status: 0,
+                info: "删除成功！"
+            });
         });
     } else {
         res.send({
