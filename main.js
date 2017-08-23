@@ -770,6 +770,20 @@ app.post("/tfile", function (req, res) {
     }
 });
 
+app.post("/del_file", function (req, res) {
+    if (req.session.slogin == true) {
+        res.send({
+            status: 0,
+            info: "删除成功！"
+        });
+    } else {
+        res.send({
+            status: -1,
+            info: "你还没登录哟！"
+        });
+    }
+});
+
 var port = 80;
 app.listen(port, function () {
     console.log(gtime() + ' 监听 http://localhost:' + port);
