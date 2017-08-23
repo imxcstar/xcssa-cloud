@@ -42,4 +42,4 @@ pm2 logs 查看日志
 pm2 monit 查看运行的进程  
 pm2 stop all 停止所有运行的进程  
 
-![avatar](https://coding.net/u/imxcstar/p/xcssa-cloud/git/raw/master/t2.png)
+![avatar](https://github.com/imxcstar/xcssa-cloud/blob/master/t2.png?raw=true)
