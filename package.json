@@ -29,7 +29,7 @@
     "validator": "^8.0.0"
   },
   "scripts": {
-    "start": "supervisor main.js"
+    "start": "pm2 start main.js"
   },
   "devDependencies": {}
 }
