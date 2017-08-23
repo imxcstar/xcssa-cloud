@@ -25,7 +25,7 @@ pm2 2.6.1
 导入目录下的xcssa_cloud.sql文件到数据库里面  
 
 1.修改参数  
-打开main.js 修改上面的那些const变量为自己的，然后修改ryzm这个函数的返回的内容，内容为发送的验证码的模版  
+打开main.js 修改上面的那些已被注释掉的const变量为自己的，并把注释符号去掉，然后注释var pkey = require("./pk"); 这句代码，然后修改ryzm这个函数的返回的内容，内容为发送的验证码的模版  
 
 2.安装pm2  
 npm install pm2 -g  
