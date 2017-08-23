@@ -779,7 +779,7 @@ app.post("/delfile", function (req, res) {
             if (yz.isNumeric(files[i]))
                 filesql += "fid=" + mysqlc.escape(files[i]) + " OR ";
         }
-        filesql.substring(0, filesql.length - 4);
+        filesql = filesql.substring(0, filesql.length - 4);
         console.log(filesql);
         var udsql = 'DELETE FROM file where ' + filesql;
         mysqlc.query(udsql, function (err, result) {
