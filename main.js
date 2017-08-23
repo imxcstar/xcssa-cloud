@@ -781,7 +781,7 @@ app.post("/delfile", function (req, res) {
         }
         filesql.substring(0, filesql.length - 4);
         var udsql = 'DELETE FROM file where ' + filesql;
-        connection.query(udsql, function (err, result) {
+        mysqlc.query(udsql, function (err, result) {
             if (err) {
                 console.log('[删除文件错误] - ', err.message);
                 return;
