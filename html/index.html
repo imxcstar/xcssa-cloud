@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.css">
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
+    <script src="http://static.geetest.com/static/tools/gt.js"></script>
+    <script src="http://cdn.bootcss.com/blueimp-md5/2.8.0/js/md5.min.js"></script>
+    <script src="./js/cos-js-sdk-v4.js"></script>
+    <link rel="stylesheet" href="./css/cs.css">
+    <title>xcssa云</title>
+</head>
+
+<body>
+    <header class="am-topbar">
+        <h1 class="am-topbar-brand">
+            <a href="#">XCSSA云</a>
+        </h1>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-default am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="/">首页</a></li>
+            </ul>
+            <div class="am-topbar-right">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li><a class="am-icon-sign-in am-icon-sm login" href="javascript: void(0)" style="display:none">&nbsp;登录</a></li>
+                    <li class="am-dropdown user_list" data-am-dropdown style="display:none">
+                        <a href="javascript: void(0)" class="am-icon-user am-icon-sm am-dropdown-toggle u_name" data-am-dropdown-toggle>&nbsp;用户</a>
+                        <ul class="am-dropdown-content">
+                            <li class="am-dropdown-header u_space">1024M</li>
+                            <li class="am-dropdown-header" style="height:20px">
+                                <div class="am-progress am-progress-xs">
+                                    <div class="am-progress-bar space_jd" style="width: 0%"></div>
+                                </div>
+                            </li>
+                            <li><a href="/">用户信息</a></li>
+                            <li><a href="/">后台管理</a></li>
+                            <li class="am-divider"></li>
+                            <li><a class="am-icon-sign-out am-icon-sm logout" href="javascript: void(0)">&nbsp;注销</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="loginz">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">登录
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+                    <input type="text" class="am-form-field login_tusername" placeholder="帐号" onkeypress="if(event.keyCode==13) {$('.tlogin').click();return false;}">
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+                    <input type="password" class="am-form-field login_tpassword" placeholder="密码" onkeypress="if(event.keyCode==13) {$('.tlogin').click();return false;}">
+                </div>
+
+                <div class="am-text-right">
+                    <a class="fpassword" href="javascript: void(0)">忘记密码</a>
+                    <button type="button" class="am-btn am-btn-primary am-btn-sm register">注册</button>
+                    <button type="button" class="am-btn am-btn-primary am-btn-sm tlogin">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="registerz">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">
+                <a href="javascript: void(0)" class="zs">←</a> 注册
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+                    <input type="text" class="am-form-field register_tusername" placeholder="账号名">
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-envelope am-icon-fw"></i></span>
+                    <input type="email" class="am-form-field register_temail" placeholder="邮箱">
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-phone am-icon-fw"></i></span>
+                    <input type="tel" class="am-form-field register_tphone" placeholder="手机号">
+                    <span class="am-input-group-btn">
+                        <button class="am-btn am-btn-default tkey" type="button">获取验证码</button>
+                    </span>
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-key am-icon-fw"></i></span>
+                    <input type="text" class="am-form-field register_tkey" placeholder="验证码">
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+                    <input type="password" class="am-form-field register_tpassword" placeholder="密码">
+                </div>
+
+                <div class="am-text-right">
+                    <button type="button" class="am-btn am-btn-primary am-btn-sm tregister">注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="fpasswordz">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">
+                <a href="javascript: void(0)" class="zs">←</a> 忘记密码
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+                    <input type="text" class="am-form-field fpassword_tusername" placeholder="账号名">
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-envelope am-icon-fw"></i></span>
+                    <input type="email" class="am-form-field fpassword_temail" placeholder="邮箱">
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-phone am-icon-fw"></i></span>
+                    <input type="tel" class="am-form-field fpassword_tphone" placeholder="手机号">
+                    <span class="am-input-group-btn">
+                            <button class="am-btn am-btn-default fpassword_ttkey" type="button">获取验证码</button>
+                        </span>
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-key am-icon-fw"></i></span>
+                    <input type="text" class="am-form-field fpassword_tkey" placeholder="验证码">
+                </div>
+
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+                    <input type="password" class="am-form-field fpassword_tpassword" placeholder="新的密码">
+                </div>
+
+                <div class="am-text-right">
+                    <button type="button" class="am-btn am-btn-primary am-btn-sm tfpassword">修改密码</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tsq">
+    </div>
+
+    <div class="am-margin-horizontal file_list" style="display:none">
+        <ul class="am-avg-sm-2 ljan">
+            <li class="ljan">
+                <ol class="am-breadcrumb file_list_list">
+                    <li><a href="javascript: void(0)" class="file_list_list_0 am-icon-home">/</a></li>
+                </ol>
+            </li>
+            <li class="ljan am-text-right">
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top refresh_file">刷新</button>
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top show_up_file">上传</button>
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top show_create_folder">新建文件夹</button>
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top del_file" style="display:none">删除</button>
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top rename-file" style="display:none">重命名</button>
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top mv_file" style="display:none">移动</button>
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top cp_file" style="display:none">复制</button>
+                <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top show_file_info" style="display:none">属性</button>
+            </li>
+        </ul>
+        <ul class="am-list file_list_1 am-list-border">
+        </ul>
+    </div>
+
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="file_info">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">文件信息
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="am-margin-horizontal">
+                    <ul style="list-style-type:none">
+                        <li class="file_info_name">文件名：23333333333333333</li>
+                        <li class="file_info_type">文件类型：23333333333333333</li>
+                        <li class="file_info_size">文件大小：23333333333333333</li>
+                        <li class="file_info_ctime">创建时间：23333333333333333</li>
+                        <li class="file_info_mtime">修改时间：23333333333333333</li>
+                        <li>
+                            <div class="am-checkbox-inline set_file_info_share">
+                                <label>
+                                    <input type="checkbox">分享
+                                </label>
+                            </div>
+                            <input class="file_info_share_url" type="url" disabled>
+                        </li>
+                        <li>
+                            <div class="am-checkbox-inline set_file_info_share_password">
+                                <label>
+                                    <input type="checkbox">分享密码
+                                </label>
+                            </div>
+                            <input class="file_info_share_password" type="text" disabled>
+                        </li>
+                    </ul>
+                </div>
+                <div class="am-text-right">
+                    <button type="button" class="am-btn am-btn-primary am-btn-sm am-margin-top down_file">下载</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="create_folder_z">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">新建文件夹
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="am-input-group am-margin-bottom-sm">
+                    <span class="am-input-group-label"><i class="am-icon-folder am-icon-fw"></i></span>
+                    <input type="text" class="am-form-field create_folder_name" placeholder="文件夹名字" onkeypress="if(event.keyCode==13) {$('.create_folder').click();return false;}">
+                </div>
+
+                <div style="color:red;">请勿输入斜杠和反斜杠，名字最长30个字</div>
+
+                <div class="am-text-right">
+                    <button type="button" class="am-btn am-btn-primary am-btn-sm create_folder">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="show_up_file_z">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">上传文件
+                <a href="javascript: void(0)" class="am-close am-close-spin close_upfile_z" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <div class="am-form-group am-form-file s_up_file_b">
+                    <button type="button" class="am-btn am-btn-danger am-btn-sm">
+                        <i class="am-icon-cloud-upload"></i> 选择要上传的文件</button>
+                    <input id="open_up_file" type="file" multiple>
+                </div>
+                <div class="up_file-list"></div>
+                <div class="am-text-right">
+                    <button type="button" class="am-btn am-btn-primary am-btn-sm up_file">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/lr.js"></script>
+    <script src="./js/cfl.js"></script>
+    <script src="./js/jqc.js"></script>
+
+</body>
+
+</html>
